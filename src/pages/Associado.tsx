@@ -1,42 +1,38 @@
 import { useState } from 'react';
 import CriarAssociado from '../components/CriarAssociado';
+import ListarAssociados from '../components/ListarAssociados';
 import Banner from '../components/Banner';
 
 const Associado = () => {
-  const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [modo, setModo] = useState<'listar' | 'criar'>('listar');
 
   return (
     <>
-      {!mostrarFormulario ? (
-        <>
-          <Banner
-            titulo="Associados"
-            descricao="Gerencie seus associados. Cadastre, edite e acompanhe facilmente todos os registros."
-          />
-          <div className="content full-width">
-            <div className="botao-container">
-              <button
-                className="botao-principal"
-                onClick={() => setMostrarFormulario(true)}
-              >
-                Cadastrar Novo Associado
-              </button>
-            </div>
-          </div>
-        </>
-      ) : (
-        <div className="content full-width">
-          <CriarAssociado />
-          <div className="botao-container">
+      <Banner
+        titulo="Associados"
+        descricao="Gerencie seus associados. Cadastre, edite e acompanhe facilmente todos os registros."
+      />
+      <div className="content full-width">
+        <div className="botao-container">
+          {modo === 'listar' ? (
+            <button
+              className="botao-principal"
+              onClick={() => setModo('criar')}
+            >
+              Cadastrar Novo Associado
+            </button>
+          ) : (
             <button
               className="botao-secundario"
-              onClick={() => setMostrarFormulario(false)}
+              onClick={() => setModo('listar')}
             >
-              Voltar
+              Voltar para Listagem
             </button>
-          </div>
+          )}
         </div>
-      )}
+        
+        {modo === 'listar' ? <ListarAssociados /> : <CriarAssociado />}
+      </div>
     </>
   );
 };
