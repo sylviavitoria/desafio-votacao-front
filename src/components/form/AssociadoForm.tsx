@@ -13,14 +13,23 @@ interface AssociadoFormProps {
     nome: string;
     cpf: string;
     email: string;
+    id?: number;
   };
   errors: FormErrors;
   enviando: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  submitLabel?: { idle: string; enviando: string };
 }
 
-const AssociadoForm = ({ formData, errors, enviando, onChange, onSubmit }: AssociadoFormProps) => {
+const AssociadoForm = ({ 
+  formData, 
+  errors, 
+  enviando, 
+  onChange, 
+  onSubmit,
+  submitLabel = { idle: 'Cadastrar', enviando: 'Cadastrando...' }
+}: AssociadoFormProps) => {
   const campos = [
     {
       name: 'nome',
@@ -45,7 +54,7 @@ const AssociadoForm = ({ formData, errors, enviando, onChange, onSubmit }: Assoc
       errors={errors}
       enviando={enviando}
       campos={campos}
-      submitLabel={{ idle: 'Cadastrar', enviando: 'Cadastrando...' }}
+      submitLabel={submitLabel}
       onChange={onChange}
       onSubmit={onSubmit}
     />
