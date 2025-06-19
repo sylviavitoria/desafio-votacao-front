@@ -1,20 +1,20 @@
 import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import AssociadoForm from './form/AssociadoForm';
-import useAssociadoDetalhes from '../hooks/useAssociadoDetalhes';
-import useFormAssociado from '../hooks/useFormAssociado';
+import PautaForm from './form/PautaForm';
+import usePautaDetalhes from '../hooks/usePautaDetalhes';
+import useFormPauta from '../hooks/useFormPauta';
 
-function EditarAssociado() {
+function EditarPauta() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   
-  const associadoId = id ? parseInt(id) : undefined;
+  const pautaId = id ? parseInt(id) : undefined;
   
   const { 
-    associado,
+    pauta,
     carregando: carregandoDetalhes, 
     erro: erroDetalhes 
-  } = useAssociadoDetalhes({ id: associadoId });
+  } = usePautaDetalhes({ id: pautaId });
   
   const { 
     formData, 
@@ -24,33 +24,38 @@ function EditarAssociado() {
     handleChange, 
     handleSubmit,
     setFormData
-  } = useFormAssociado({
-    associadoId,
+  } = useFormPauta({
+    pautaId,
     onSuccess: () => {
       setTimeout(() => {
-        navigate('/listar-associados');
+        navigate('/listar-pautas');
       }, 2000);
     }
   });
 
   useEffect(() => {
-    if (associado) {
-      setFormData(associado);
+    if (pauta) {
+      setFormData({
+        titulo: pauta.titulo,
+        descricao: pauta.descricao,
+        criadorId: pauta.criador.id,
+        id: pauta.id
+      });
     }
-  }, [associado, setFormData]);
+  }, [pauta, setFormData]);
 
   if (carregandoDetalhes) {
-    return <p className="carregando">Carregando dados do associado...</p>;
+    return <p className="carregando">Carregando dados da pauta...</p>;
   }
 
   if (erroDetalhes) {
     return (
-      <div className="editar-associado content">
-        <h2>Erro ao Carregar Associado</h2>
+      <div className="editar-pauta">
+        <h2>Erro ao Carregar Pauta</h2>
         <div className="error-message">{erroDetalhes}</div>
         <button 
           className="botao-secundario" 
-          onClick={() => navigate('/listar-associados')}
+          onClick={() => navigate('/listar-pautas')}
         >
           Voltar para listagem
         </button>
@@ -59,12 +64,12 @@ function EditarAssociado() {
   }
 
   return (
-    <div className="editar-associado">
-      <h2>Editar Associado</h2>
+    <div className="editar-pauta">
+      <h2>Editar Pauta</h2>
       
       {enviado && (
         <div className="success-message">
-          Associado atualizado com sucesso!
+          Pauta atualizada com sucesso!
         </div>
       )}
 
@@ -74,19 +79,20 @@ function EditarAssociado() {
         </div>
       )}
       
-      <AssociadoForm 
+      <PautaForm 
         formData={formData}
         errors={errors}
         enviando={enviando}
         onChange={handleChange}
         onSubmit={handleSubmit}
         submitLabel={{ idle: 'Atualizar', enviando: 'Atualizando...' }}
+        modoEdicao={true} 
       />
 
       <div className="botao-container" style={{ textAlign: 'center', padding: '1rem 0' }}>
         <button
           className="botao-secundario"
-          onClick={() => navigate('/listar-associados')}
+          onClick={() => navigate('/listar-pautas')}
           disabled={enviando}
         >
           Cancelar
@@ -96,4 +102,4 @@ function EditarAssociado() {
   );
 }
 
-export default EditarAssociado;
+export default EditarPauta;
