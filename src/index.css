@@ -559,3 +559,148 @@ button[type="submit"]:disabled {
     flex-wrap: wrap;
   }
 }
+
+.criar-pauta,
+.editar-pauta {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 0;
+  background: none; 
+  border-radius: 0; 
+  box-shadow: none;
+  box-sizing: border-box;
+  width: 100%; 
+}
+
+.criar-pauta h1,
+.editar-pauta h2 {
+  margin-bottom: 1.5rem;
+  color: var(--primary-dark);
+  text-align: center;
+  font-size: 2rem;
+}
+
+.editar-pauta .form-group input,
+.editar-pauta .form-group textarea,
+.editar-pauta .form-group select,
+.criar-pauta .form-group input,
+.criar-pauta .form-group textarea,
+.criar-pauta .form-group select {
+  width: 100%; 
+  padding: 20px; 
+  font-size: 1.2rem; 
+  border-radius: 10px;
+  box-sizing: border-box; 
+}
+
+.editar-pauta .form-group,
+.criar-pauta .form-group {
+  margin-bottom: 35px; 
+}
+
+.editar-pauta button[type="submit"],
+.criar-pauta button[type="submit"] {
+  padding: 18px 30px; 
+  font-size: 1.3rem; 
+}
+
+.pauta-meta {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px dashed var(--border);
+  font-size: 0.95rem;
+}
+
+.pauta-status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.status-info {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+}
+
+.status-warning {
+  background-color: #fff8e1;
+  color: #ff8f00;
+}
+
+.status-dark {
+  background-color: #eceff1;
+  color: #263238;
+}
+
+.status-success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-danger {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.status-secondary {
+  background-color: #f3e5f5;
+  color: #6a1b9a;
+}
+
+.pauta-descricao {
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-style: italic;
+  color: var(--text);
+}
+
+.pauta-resultado {
+  background-color: #f5f7fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+.votos-container {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.voto-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.voto-count {
+  font-weight: bold;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 1.1rem;
+}
+
+.voto-count.sim {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.voto-count.nao {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+@media (max-width: 768px) {
+  .criar-pauta,
+  .editar-pauta {
+    padding: 0 20px;
+  }
+  
+  .criar-pauta h1,
+  .editar-pauta h2 {
+    font-size: 1.8rem;
+  }
+}
