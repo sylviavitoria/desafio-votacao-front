@@ -65,7 +65,7 @@ function ListarAssociados() {
               >
                 <p><strong>Email:</strong> {associado.email}</p>
                 {/* <p><strong>CPF:</strong> {associado.cpf}</p> */}
-                {/* <p><strong>ID:</strong> {associado.id}</p> */}
+                <p><strong>ID:</strong> {associado.id}</p>
               </Card>
             ))}
           </div>
