@@ -8,9 +8,21 @@ export const associadoService = {
     return response.data;
   },
 
-  async listar(pagina: number = 0, tamanho: number = 10): Promise<PageResponse<Associado>> {
-    const response: AxiosResponse<PageResponse<Associado>> = 
-      await api.get(`/associados?page=${pagina}&size=${tamanho}`);
+  async listar(pagina: number = 0, tamanho: number = 10, ordenacao?: string): Promise<PageResponse<Associado>> {
+    let sortParam = '';
+    if (ordenacao) {
+      const parts = ordenacao.split(',');
+      if (parts.length > 1) {
+        sortParam = `&sort=${parts[0]}&direction=${parts[1]}`;
+      } else {
+        sortParam = `&sort=${ordenacao}`;
+      }
+    } else {
+      sortParam = '&sort=nome&direction=asc';
+    }
+
+    const response: AxiosResponse<PageResponse<Associado>> =
+      await api.get(`/associados?page=${pagina}&size=${tamanho}${sortParam}`);
     return response.data;
   },
 

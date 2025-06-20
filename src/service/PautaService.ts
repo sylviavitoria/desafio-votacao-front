@@ -8,9 +8,21 @@ export const pautaService = {
         return response.data;
     },
 
-    async listar(pagina: number = 0, tamanho: number = 10, ordenacao: string = 'dataCriacao,desc'): Promise<PageResponse<PautaResponse>> {
+    async listar(pagina: number = 0, tamanho: number = 10, ordenacao?: string): Promise<PageResponse<PautaResponse>> {
+        let sortParam = '';
+        if (ordenacao) {
+            const parts = ordenacao.split(',');
+            if (parts.length > 1) {
+                sortParam = `&sort=${parts[0]}&direction=${parts[1]}`;
+            } else {
+                sortParam = `&sort=${ordenacao}`;
+            }
+        } else {
+            sortParam = '&sort=dataCriacao&direction=desc';
+        }
+
         const response: AxiosResponse<PageResponse<PautaResponse>> =
-            await api.get(`/pautas?page=${pagina}&size=${tamanho}&sort=${ordenacao}`);
+            await api.get(`/pautas?page=${pagina}&size=${tamanho}${sortParam}`);
         return response.data;
     },
 
