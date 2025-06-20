@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
-import useForm from './useForm';
 import { Pauta, PautaResponse, PautaAtualizarRequest } from '../types/Pauta';
 import { pautaService } from '../service/PautaService';
+import useFormEntidade from './useFormEntidade';
 
 interface UseFormPautaProps {
   pautaId?: number;
@@ -14,7 +13,7 @@ export default function useFormPauta({
   pautaInicial,
   onSuccess
 }: UseFormPautaProps = {}) {
-  const initialValues: Pauta = pautaInicial || {
+  const initialValues: Pauta = {
     titulo: '',
     descricao: '',
     criadorId: '',
@@ -27,62 +26,26 @@ export default function useFormPauta({
     ],
     descricao: [
       { required: true, message: 'Descrição é obrigatória' }
-    ]
+    ],
+    ...(pautaId ? {} : {
+      criadorId: [
+        { required: true, message: 'ID do criador é obrigatório' }
+      ]
+    })
   };
 
-  if (!pautaId) {
-    validationRules['criadorId'] = [
-      { required: true, message: 'ID do criador é obrigatório' }
-    ];
-  }
-
-  const form = useForm<Pauta>({
-    initialValues,
-    validationRules,
-    onSubmit: async (data) => {
-      try {
-        let response;
-
-        if (data.id) {
-          const pautaAtualizar: PautaAtualizarRequest = {
-            titulo: data.titulo,
-            descricao: data.descricao
-          };
-          response = await pautaService.atualizar(data.id, pautaAtualizar);
-          console.log('Pauta atualizada com sucesso:', response);
-        } else {
-          response = await pautaService.criar(data);
-          console.log('Pauta criada com sucesso:', response);
-        }
-
-        if (onSuccess) {
-          onSuccess(response);
-        }
-
-        return response;
-      } catch (error) {
-        console.error('Erro na operação da pauta:', error);
-        throw error;
-      }
-    }
+  const prepararParaAtualizar = (data: Pauta): PautaAtualizarRequest => ({
+    titulo: data.titulo,
+    descricao: data.descricao
   });
 
-  useEffect(() => {
-    if (pautaInicial) {
-      form.setFormData(pautaInicial);
-    } else if (pautaId && !form.formData.id) {
-      form.setFormData({ ...form.formData, id: pautaId });
-    }
-  }, [pautaInicial, pautaId, form]);
-
-  return {
-    formData: form.formData,
-    errors: form.errors,
-    enviando: form.enviando,
-    enviado: form.enviado,
-    handleChange: form.handleChange,
-    handleSubmit: form.handleSubmit,
-    resetForm: form.resetForm,
-    setFormData: form.setFormData
-  };
+  return useFormEntidade<Pauta, PautaResponse>({
+    entidadeId: pautaId,
+    entidadeInicial: pautaInicial,
+    initialValues,
+    validationRules,
+    service: pautaService,
+    onSuccess,
+    prepararParaAtualizar
+  });
 }
