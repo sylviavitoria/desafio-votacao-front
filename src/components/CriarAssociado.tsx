@@ -1,31 +1,21 @@
 import AssociadoForm from './form/AssociadoForm';
 import useFormAssociado from '../hooks/useFormAssociado';
+import CriarEntidade from './generic/CriarEntidade';
 
 function CriarAssociado() {
   const { formData, errors, enviando, enviado, handleChange, handleSubmit } = useFormAssociado();
 
   return (
     <div className="criar-associado">
-      <h1>Criar Associado</h1>
-      
-      {enviado && (
-        <div className="success-message">
-          Associado criado com sucesso!
-        </div>
-      )}
-
-      {errors.form && (
-        <div className="error-message">
-          {errors.form}
-        </div>
-      )}
-      
-      <AssociadoForm 
+      <CriarEntidade
+        titulo="Criar Associado"
         formData={formData}
         errors={errors}
         enviando={enviando}
-        onChange={handleChange}
-        onSubmit={handleSubmit}
+        enviado={enviado}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        FormComponent={AssociadoForm}
       />
     </div>
   );

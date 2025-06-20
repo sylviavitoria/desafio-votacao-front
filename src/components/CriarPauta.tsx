@@ -1,31 +1,28 @@
 import PautaForm from './form/PautaForm';
 import useFormPauta from '../hooks/useFormPauta';
+import CriarEntidade from './generic/CriarEntidade';
+
+interface PautaFormData {
+  titulo: string;
+  descricao: string;
+  criadorId: number | string;
+  id?: number;
+}
 
 function CriarPauta() {
   const { formData, errors, enviando, enviado, handleChange, handleSubmit } = useFormPauta();
 
   return (
     <div className="criar-pauta">
-      <h1>Criar Pauta</h1>
-      
-      {enviado && (
-        <div className="success-message">
-          Pauta criada com sucesso!
-        </div>
-      )}
-
-      {errors.form && (
-        <div className="error-message">
-          {errors.form}
-        </div>
-      )}
-      
-      <PautaForm 
-        formData={formData}
+      <CriarEntidade<PautaFormData>
+        titulo="Criar Pauta"
+        formData={formData as PautaFormData}
         errors={errors}
         enviando={enviando}
-        onChange={handleChange}
-        onSubmit={handleSubmit}
+        enviado={enviado}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        FormComponent={PautaForm}
       />
     </div>
   );

@@ -1,11 +1,9 @@
-import { useNavigate } from 'react-router-dom';
 import useListarAssociados from '../hooks/useListarAssociados';
 import useExcluirAssociado from '../hooks/useExcluirAssociado';
-import Card from './Card';
+import ListarEntidade from './generic/ListarEntidade';
+import { Associado } from '../types/Associado';
 
 function ListarAssociados() {
-  const navigate = useNavigate();
-  
   const { 
     associados, 
     carregando, 
@@ -28,70 +26,36 @@ function ListarAssociados() {
     }
   });
 
-  const handleExcluir = async (id: number) => {
-    await excluirAssociado(id);
+  const renderizarConteudoAssociado = (associado: Associado) => {
+    return (
+      <>
+        <p><strong>Email:</strong> {associado.email}</p>
+        <p><strong>ID:</strong> {associado.id}</p>
+      </>
+    );
   };
-
-  const handleEditar = (id: number) => {
-    navigate(`/editar-associado/${id}`);
-  };
-
-  if (carregando) {
-    return <p className="carregando">Carregando associados...</p>;
-  }
 
   return (
-    <div className="listar-associados">
-      <h2>Lista de Associados</h2>
-      
-      {(erro || erroExclusao) && (
-        <div className="error-message">
-          {erro || erroExclusao}
-        </div>
-      )}
-      
-      {associados.length === 0 ? (
-        <p className="aviso-vazio">Nenhum associado encontrado.</p>
-      ) : (
-        <>
-          <div className="cards-container">
-            {associados.map((associado) => (
-              <Card
-                key={associado.id}
-                titulo={associado.nome}
-                onEdit={() => handleEditar(associado.id!)}
-                onDelete={() => !excluindo && handleExcluir(associado.id!)}
-                clickToReveal={true} 
-              >
-                <p><strong>Email:</strong> {associado.email}</p>
-                {/* <p><strong>CPF:</strong> {associado.cpf}</p> */}
-                <p><strong>ID:</strong> {associado.id}</p>
-              </Card>
-            ))}
-          </div>
-
-          <div className="paginacao">
-            <button 
-              onClick={() => mudarPagina(pagina - 1)}
-              disabled={carregando || primeiraPagina}
-              className="botao-secundario"
-            >
-              Anterior
-            </button>
-            <span>
-              Página {pagina + 1} de {totalPaginas}
-            </span>
-            <button 
-              onClick={() => mudarPagina(pagina + 1)}
-              disabled={carregando || ultimaPagina}
-              className="botao-secundario"
-            >
-              Próxima
-            </button>
-          </div>
-        </>
-      )}
-    </div>
+    <ListarEntidade
+      titulo="Lista de Associados"
+      entidades={associados}
+      carregando={carregando}
+      erro={erro}
+      pagina={pagina}
+      totalPaginas={totalPaginas}
+      ultimaPagina={ultimaPagina}
+      primeiraPagina={primeiraPagina}
+      mudarPagina={mudarPagina}
+      excluir={excluirAssociado}
+      excluindo={excluindo}
+      erroExclusao={erroExclusao}
+      rotaEditarBase="editar-associado"
+      getId={(associado) => associado.id!}
+      getTitulo={(associado) => associado.nome}
+      podeEditar={() => true}
+      podeExcluir={() => true}
+      renderizarConteudo={renderizarConteudoAssociado}
+    />
   );
 }
 
