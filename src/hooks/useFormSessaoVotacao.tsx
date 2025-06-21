@@ -15,16 +15,13 @@ export default function useFormSessaoVotacao({
     const [modo, setModo] = useState<'imediato' | 'agendado'>('imediato');
 
     const initialValues: SessaoVotacaoRequest = {
-        pautaId: pautaId || 0,
-        duracaoMinutos: '',
+        pautaId: pautaId || 0, 
+        duracaoMinutos: undefined,
         dataInicio: '',
         dataFim: ''
     };
 
     const validationRules = {
-        pautaId: [
-            { required: true, message: 'ID da pauta é obrigatório' }
-        ],
         ...(modo === 'imediato' ? {
 
         } : {

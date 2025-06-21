@@ -36,14 +36,6 @@ const SessaoVotacaoForm = ({
     setModo
 }: SessaoVotacaoFormProps) => {
 
-    const camposPautaId = [
-        {
-            name: 'pautaId',
-            label: 'ID da Pauta',
-            type: 'text' as const
-        }
-    ];
-
     const camposImediato = [
         {
             name: 'duracaoMinutos',
@@ -68,8 +60,7 @@ const SessaoVotacaoForm = ({
         }
     ];
 
-    const modoFields = modo === 'imediato' ? camposImediato : camposAgendado;
-    const campos = [...camposPautaId, ...modoFields];
+    const campos = modo === 'imediato' ? camposImediato : camposAgendado;
 
     return (
         <>
