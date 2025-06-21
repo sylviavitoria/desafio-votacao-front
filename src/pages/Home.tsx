@@ -9,7 +9,7 @@ const Home = () => {
         descricao="Confira todas as pautas disponíveis para votação"
       />
       <div className="content full-width">
-        <ListarPautas titulo="Pautas Disponíveis" />
+        <ListarPautas titulo="Todas as Pautas" />
       </div>
     </>
   );

@@ -7,7 +7,7 @@ const Voto = () => {
     <>
       <Banner
         titulo="Consultas de Votação"
-        descricao="Visualize detalhes sobre votos individuais e resultados de pautas."
+        descricao="Visualize detalhes sobre votos individuais, atualize seu voto e consulte resultados de pautas."
       />
       <div className="content">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>

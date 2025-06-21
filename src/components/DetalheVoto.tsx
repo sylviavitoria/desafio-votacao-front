@@ -39,6 +39,10 @@ const DetalheVoto = () => {
             <p><strong>Voto:</strong> {voto.opcao}</p>
             <p><strong>Data/Hora:</strong> {new Date(voto.dataHora).toLocaleString()}</p>
           </div>
+          <div className="card-acoes">
+            <button className="botao-secundario">Voltar</button>
+            <button className="botao-principal">Detalhar Pauta</button>
+          </div>
         </div>
       </div>
     </>
