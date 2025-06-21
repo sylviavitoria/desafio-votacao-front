@@ -18,7 +18,7 @@ function CriarSessaoVotacao({ pautaId, onSuccess }: CriarSessaoVotacaoProps) {
     modo,
     setModo
   } = useFormSessaoVotacao({ 
-    pautaId,
+    pautaId, 
     onSuccess: (data) => {
       console.log('Sessão de votação criada com sucesso', data);
       if (onSuccess) onSuccess();
