@@ -9,6 +9,10 @@ export interface VotoRequest {
   opcao: OpcaoVoto;
 }
 
+export interface VotoAtualizarRequest {
+  opcao: OpcaoVoto;
+}
+
 export interface VotoResponse {
   id: number;
   opcao: OpcaoVoto;
