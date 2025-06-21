@@ -39,5 +39,9 @@ export const sessaoVotacaoService = {
   async atualizarPeriodo(id: number, dados: SessaoVotacaoAtualizarRequest): Promise<SessaoVotacaoResponse> {
     const response: AxiosResponse<SessaoVotacaoResponse> = await api.put(`/sessoes/${id}/periodo`, dados);
     return response.data;
+  },
+  
+  async excluir(id: number): Promise<void> {
+    await api.delete(`/sessoes/${id}`);
   }
 };
