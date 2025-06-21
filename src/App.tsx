@@ -6,6 +6,7 @@ import Associado from './pages/Associado';
 import EditarAssociado from './components/EditarAssociado';
 import Pauta from './pages/Pauta';
 import EditarPauta from './components/EditarPauta';
+import DetalhePauta from './pages/DetalhePauta';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/pauta" element={<Pauta />} />
           <Route path="/editar-pauta/:id" element={<EditarPauta />} />
           <Route path="/listar-pautas" element={<Pauta />} />
+          <Route path="/detalhe-votacao/:id" element={<DetalhePauta />} />
         </Routes>
         <Footer />
       </div>
