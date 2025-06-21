@@ -6,18 +6,20 @@ interface CardProps {
   className?: string;
   onEdit?: () => void;
   onDelete?: () => void;
+  onIniciarSessao?: () => void;
   actions?: ReactNode;
-  clickToReveal?: boolean; 
+  clickToReveal?: boolean;
 }
 
-const Card = ({ 
-  titulo, 
-  children, 
-  className = '', 
-  onEdit, 
-  onDelete, 
-  actions, 
-  clickToReveal = false 
+const Card = ({
+  titulo,
+  children,
+  className = '',
+  onEdit,
+  onDelete,
+  onIniciarSessao, 
+  actions,
+  clickToReveal = false
 }: CardProps) => {
   const [expanded, setExpanded] = useState(false);
 
@@ -30,31 +32,40 @@ const Card = ({
   const showActions = !clickToReveal || (clickToReveal && expanded);
 
   return (
-    <div 
-      className={`card ${className} ${clickToReveal ? 'card-clickable' : ''} ${expanded ? 'card-expanded' : ''}`} 
+    <div
+      className={`card ${className} ${clickToReveal ? 'card-clickable' : ''} ${expanded ? 'card-expanded' : ''}`}
       onClick={handleClick}
     >
       {titulo && <h3 className="card-titulo">{titulo}</h3>}
-      
+
       <div className="card-conteudo">
         {children}
       </div>
-      
-      {(onEdit || onDelete || actions) && showActions && (
+
+      {(onEdit || onDelete || onIniciarSessao || actions) && showActions && (
         <div className="card-acoes" onClick={e => e.stopPropagation()}>
           {actions}
-          
+
+          {onIniciarSessao && (
+            <button
+              className="botao-principal"
+              onClick={onIniciarSessao}
+            >
+              Iniciar Sessão
+            </button>
+          )}
+
           {onEdit && (
-            <button 
+            <button
               className="botao-secundario"
               onClick={onEdit}
             >
               Editar
             </button>
           )}
-          
+
           {onDelete && (
-            <button 
+            <button
               className="botao-secundario excluir"
               onClick={onDelete}
             >
@@ -63,7 +74,7 @@ const Card = ({
           )}
         </div>
       )}
-      
+
       {clickToReveal && (
         <div className="card-expand-hint">
           {expanded ? 'Clique para recolher' : 'Clique para expandir'}

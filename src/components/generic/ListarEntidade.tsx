@@ -19,6 +19,8 @@ interface ListarEntidadeProps<T> {
   getTitulo: (item: T) => string;
   podeEditar: (item: T) => boolean;
   podeExcluir: (item: T) => boolean;
+  podeIniciarSessao?: (item: T) => boolean; 
+  onIniciarSessao?: (id: number) => void;  
   renderizarConteudo: (item: T) => React.ReactNode;
 }
 
@@ -40,6 +42,8 @@ function ListarEntidade<T>({
   getTitulo,
   podeEditar,
   podeExcluir,
+  podeIniciarSessao,
+  onIniciarSessao,   
   renderizarConteudo
 }: ListarEntidadeProps<T>) {
   const navigate = useNavigate();
@@ -50,6 +54,12 @@ function ListarEntidade<T>({
 
   const handleEditar = (id: number) => {
     navigate(`/${rotaEditarBase}/${id}`);
+  };
+
+  const handleIniciarSessao = (id: number) => {
+    if (onIniciarSessao) {
+      onIniciarSessao(id);
+    }
   };
 
   if (carregando) {
@@ -77,6 +87,7 @@ function ListarEntidade<T>({
                 titulo={getTitulo(entidade)}
                 onEdit={podeEditar(entidade) ? () => handleEditar(getId(entidade)) : undefined}
                 onDelete={podeExcluir(entidade) ? () => !excluindo && handleExcluir(getId(entidade)) : undefined}
+                onIniciarSessao={podeIniciarSessao && podeIniciarSessao(entidade) ? () => handleIniciarSessao(getId(entidade)) : undefined}
                 clickToReveal={true}
               >
                 {renderizarConteudo(entidade)}
