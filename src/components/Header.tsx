@@ -32,6 +32,7 @@ const Header = () => {
         <li><Link to="/" onClick={() => isMobile && setMenuOpen(false)}>Home</Link></li>
         <li><Link to="/associado" onClick={() => isMobile && setMenuOpen(false)}>Associado</Link></li>
         <li><Link to="/pauta" onClick={() => isMobile && setMenuOpen(false)}>Pautas</Link></li>
+        <li><Link to="/detalhe-votacao" onClick={() => isMobile && setMenuOpen(false)}>Iniciar Votação</Link></li>
       </ul>
     </header>
   );
