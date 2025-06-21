@@ -18,3 +18,11 @@ export interface VotoResponse {
   pautaId: number;
   pautaTitulo: string;
 }
+
+export interface ResultadoVotacaoResponse {
+  pautaId: number;
+  pautaTitulo: string;
+  votosSim: number;
+  votosNao: number;
+  totalVotos: number;
+}

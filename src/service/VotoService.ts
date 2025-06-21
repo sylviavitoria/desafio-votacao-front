@@ -11,5 +11,11 @@ export const votoService = {
     async obterPorId(id: number): Promise<VotoResponse> {
         const response: AxiosResponse<VotoResponse> = await api.get(`/votos/${id}`);
         return response.data;
+    },
+    
+    async consultarResultado(pautaId: number): Promise<ResultadoVotacaoResponse> {
+        const response: AxiosResponse<ResultadoVotacaoResponse> = 
+            await api.get(`/votos/pautas/${pautaId}/resultado`);
+        return response.data;
     }
 };
