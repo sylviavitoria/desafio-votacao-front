@@ -52,6 +52,10 @@ function ListarPautas({ titulo = "Lista de Pautas" }) {
   const iniciarSessaoVotacao = (id: number) => {
     navigate(`/detalhe-votacao/${id}`);
   };
+  
+  const votar = (id: number) => {
+    navigate(`/detalhe-votacao/${id}?votar=true`);
+  };
 
   const renderizarConteudoPauta = (pauta: PautaResponse) => {
     const statusInfo = getStatusLabel(pauta.status);
@@ -111,6 +115,8 @@ function ListarPautas({ titulo = "Lista de Pautas" }) {
       podeExcluir={(pauta) => pauta.status === 'CRIADA'}
       podeIniciarSessao={(pauta) => pauta.status === 'CRIADA'}
       onIniciarSessao={iniciarSessaoVotacao}
+      podeVotar={(pauta) => pauta.status === 'EM_VOTACAO'} 
+      onVotar={votar} 
       renderizarConteudo={renderizarConteudoPauta}
     />
   );

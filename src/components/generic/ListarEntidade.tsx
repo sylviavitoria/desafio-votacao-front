@@ -20,7 +20,9 @@ interface ListarEntidadeProps<T> {
   podeEditar: (item: T) => boolean;
   podeExcluir: (item: T) => boolean;
   podeIniciarSessao?: (item: T) => boolean; 
-  onIniciarSessao?: (id: number) => void;  
+  onIniciarSessao?: (id: number) => void;
+  podeVotar?: (item: T) => boolean; 
+  onVotar?: (id: number) => void;      
   renderizarConteudo: (item: T) => React.ReactNode;
 }
 
@@ -43,7 +45,9 @@ function ListarEntidade<T>({
   podeEditar,
   podeExcluir,
   podeIniciarSessao,
-  onIniciarSessao,   
+  onIniciarSessao,
+  podeVotar,       
+  onVotar,             
   renderizarConteudo
 }: ListarEntidadeProps<T>) {
   const navigate = useNavigate();
@@ -59,6 +63,12 @@ function ListarEntidade<T>({
   const handleIniciarSessao = (id: number) => {
     if (onIniciarSessao) {
       onIniciarSessao(id);
+    }
+  };
+
+  const handleVotar = (id: number) => { 
+    if (onVotar) {
+      onVotar(id);
     }
   };
 
@@ -88,6 +98,7 @@ function ListarEntidade<T>({
                 onEdit={podeEditar(entidade) ? () => handleEditar(getId(entidade)) : undefined}
                 onDelete={podeExcluir(entidade) ? () => !excluindo && handleExcluir(getId(entidade)) : undefined}
                 onIniciarSessao={podeIniciarSessao && podeIniciarSessao(entidade) ? () => handleIniciarSessao(getId(entidade)) : undefined}
+                onVotar={podeVotar && podeVotar(entidade) ? () => handleVotar(getId(entidade)) : undefined}
                 clickToReveal={true}
               >
                 {renderizarConteudo(entidade)}

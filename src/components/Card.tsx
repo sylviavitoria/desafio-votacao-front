@@ -7,6 +7,7 @@ interface CardProps {
   onEdit?: () => void;
   onDelete?: () => void;
   onIniciarSessao?: () => void;
+  onVotar?: () => void; 
   actions?: ReactNode;
   clickToReveal?: boolean;
 }
@@ -18,6 +19,7 @@ const Card = ({
   onEdit,
   onDelete,
   onIniciarSessao, 
+  onVotar,
   actions,
   clickToReveal = false
 }: CardProps) => {
@@ -42,9 +44,19 @@ const Card = ({
         {children}
       </div>
 
-      {(onEdit || onDelete || onIniciarSessao || actions) && showActions && (
+      {(onEdit || onDelete || onIniciarSessao || onVotar || actions) && showActions && (
         <div className="card-acoes" onClick={e => e.stopPropagation()}>
           {actions}
+
+          {onVotar && (
+            <button
+              className="botao-principal"
+              onClick={onVotar}
+              style={{ backgroundColor: '#1bc47d' }}
+            >
+              Votar
+            </button>
+          )}
 
           {onIniciarSessao && (
             <button
