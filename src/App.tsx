@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Associado from './pages/Associado';
+import EditarAssociado from './components/EditarAssociado';
+import Pauta from './pages/Pauta';
+import EditarPauta from './components/EditarPauta';
+import DetalhePauta from './pages/DetalhePauta';
+import SessaoVotacao from './pages/SessaoVotacao';
+import AtualizarSessaoVotacao from './pages/AtualizarSessaoVotacao';
+import Voto from './pages/Voto';
+import DetalheVoto from './components/DetalheVoto';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <BrowserRouter>
+      <div className="app">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/associado" element={<Associado />} />
+          <Route path="/editar-associado/:id" element={<EditarAssociado />} />
+          <Route path="/listar-associados" element={<Associado />} />
+          <Route path="/pauta" element={<Pauta />} />
+          <Route path="/editar-pauta/:id" element={<EditarPauta />} />
+          <Route path="/listar-pautas" element={<Pauta />} />
+          <Route path="/detalhe-votacao/:id" element={<DetalhePauta />} />
+          <Route path="/sessao-votacao" element={<SessaoVotacao />} />
+          <Route path="/atualizar-sessao/:id" element={<AtualizarSessaoVotacao />} />
+          <Route path="/voto" element={<Voto />} />
+          <Route path="/voto/:id" element={<DetalheVoto />} />
+        </Routes>
+        <Footer />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </BrowserRouter>
+  );
+};
 
-export default App
+export default App;
