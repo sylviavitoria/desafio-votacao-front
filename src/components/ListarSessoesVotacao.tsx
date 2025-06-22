@@ -36,11 +36,11 @@ function ListarSessoesVotacao({ titulo = "Sessões de Votação" }) {
 
   const getStatusLabel = (status: string) => {
     const statusMap: Record<string, { texto: string, classe: string }> = {
-      'AGENDADA': { texto: 'Agendada', classe: 'status-info' },
-      'ABERTA': { texto: 'Em Votação', classe: 'status-warning' },
-      'ENCERRADA': { texto: 'Encerrada', classe: 'status-dark' }
+      'ABERTA': { texto: 'Aberta', classe: 'status-warning' },
+      'FECHADA': { texto: 'Fechada', classe: 'status-info' },
+      'FINALIZADA': { texto: 'Finalizada', classe: 'status-dark' }
     };
-    
+
     return statusMap[status] || { texto: status, classe: '' };
   };
 
@@ -55,7 +55,7 @@ function ListarSessoesVotacao({ titulo = "Sessões de Votação" }) {
           </div>
 
           <p><strong>Pauta:</strong> {sessao.pautaTitulo}</p>
-          
+
           <div className="pauta-meta">
             <p><strong>Data de Abertura:</strong> {formatarData(sessao.dataAbertura)}</p>
             <p><strong>Data de Fechamento:</strong> {formatarData(sessao.dataFechamento)}</p>

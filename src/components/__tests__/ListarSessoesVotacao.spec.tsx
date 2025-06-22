@@ -95,7 +95,7 @@ describe('ListarSessoesVotacao', () => {
       pautaTitulo: 'Pauta 2', 
       dataAbertura: '2025-05-02T10:00:00',
       dataFechamento: '2025-05-02T11:00:00',
-      status: 'ENCERRADA',
+      status: 'FINALIZADA',
       abertaParaVotacao: false
     },
     { 
@@ -104,7 +104,7 @@ describe('ListarSessoesVotacao', () => {
       pautaTitulo: 'Pauta 3', 
       dataAbertura: '2025-05-03T10:00:00',
       dataFechamento: '2025-05-03T11:00:00',
-      status: 'AGENDADA',
+      status: 'FECHADA',
       abertaParaVotacao: false
     }
   ];
@@ -173,13 +173,13 @@ describe('ListarSessoesVotacao', () => {
     const conteudosRenderizados = screen.getAllByTestId('conteudo-renderizado');
     
     expect(entidadeItems[0]).toHaveTextContent('Pode Editar');
-    expect(conteudosRenderizados[0]).toHaveTextContent('Em Votação');
+    expect(conteudosRenderizados[0]).toHaveTextContent('Aberta');
     
     expect(entidadeItems[1]).toHaveTextContent('Não Pode Editar');
-    expect(conteudosRenderizados[1]).toHaveTextContent('Encerrada');
+    expect(conteudosRenderizados[1]).toHaveTextContent('Finalizada');
     
     expect(entidadeItems[2]).toHaveTextContent('Não Pode Editar');
-    expect(conteudosRenderizados[2]).toHaveTextContent('Agendada');
+    expect(conteudosRenderizados[2]).toHaveTextContent('Fechada');
   });
 
   it('deve mostrar o título da sessão com o formato correto', () => {

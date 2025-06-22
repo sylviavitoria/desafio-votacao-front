@@ -5,7 +5,7 @@ export interface SessaoVotacaoRequest {
   dataFim?: string;
 }
 
-export type StatusSessao = 'AGENDADA' | 'ABERTA' | 'ENCERRADA';
+export type StatusSessao = 'ABERTA' | 'FECHADA' | 'FINALIZADA';
 
 export interface SessaoVotacaoResponse {
   id: number;
