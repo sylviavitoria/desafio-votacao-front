@@ -2,35 +2,37 @@ import useListarPautas from '../hooks/useListarPautas';
 import useExcluirPauta from '../hooks/useExcluirPauta';
 import ListarEntidade from './generic/ListarEntidade';
 import { PautaResponse } from '../types/Pauta';
+import { useNavigate } from 'react-router-dom';
 
-function ListarPautas() {
-  const { 
-    pautas, 
-    carregando, 
-    erro, 
-    pagina, 
-    totalPaginas, 
-    ultimaPagina, 
+function ListarPautas({ titulo = "Lista de Pautas" }) {
+  const navigate = useNavigate();
+  const {
+    pautas,
+    carregando,
+    erro,
+    pagina,
+    totalPaginas,
+    ultimaPagina,
     primeiraPagina,
     mudarPagina,
     carregarPautas
   } = useListarPautas();
-  
-  const { 
-    excluirPauta, 
-    excluindo, 
-    erro: erroExclusao 
+
+  const {
+    excluirPauta,
+    excluindo,
+    erro: erroExclusao
   } = useExcluirPauta({
     onSuccess: () => {
-      carregarPautas(); 
+      carregarPautas();
     }
   });
 
   const formatarData = (dataString: string) => {
     const data = new Date(dataString);
-    return data.toLocaleDateString('pt-BR') + ' ' + data.toLocaleTimeString('pt-BR', { 
-      hour: '2-digit', 
-      minute: '2-digit' 
+    return data.toLocaleDateString('pt-BR') + ' ' + data.toLocaleTimeString('pt-BR', {
+      hour: '2-digit',
+      minute: '2-digit'
     });
   };
 
@@ -47,36 +49,46 @@ function ListarPautas() {
     return statusMap[status] || { texto: status, classe: '' };
   };
 
+  const iniciarSessaoVotacao = (id: number) => {
+    navigate(`/detalhe-votacao/${id}`);
+  };
+  
+  const votar = (id: number) => {
+    navigate(`/detalhe-votacao/${id}?votar=true`);
+  };
+
   const renderizarConteudoPauta = (pauta: PautaResponse) => {
     const statusInfo = getStatusLabel(pauta.status);
-    
+
     return (
       <>
-        <div className={`pauta-status ${statusInfo.classe}`}>
-          {statusInfo.texto}
-        </div>
-        
-        <p className="pauta-descricao">{pauta.descricao}</p>
-        
-        <div className="pauta-meta">
-          <p><strong>Criado por:</strong> {pauta.criador.nome}</p>
-          <p><strong>Data de criação:</strong> {formatarData(pauta.dataCriacao)}</p>
-          
-          {(pauta.status === 'APROVADA' || pauta.status === 'RECUSADA' || pauta.status === 'EMPATADA') && (
-            <div className="pauta-resultado">
-              <p><strong>Resultado:</strong></p>
-              <div className="votos-container">
-                <div className="voto-item">
-                  <span className="voto-label">Sim:</span>
-                  <span className="voto-count sim">{pauta.totalVotosSim}</span>
-                </div>
-                <div className="voto-item">
-                  <span className="voto-label">Não:</span>
-                  <span className="voto-count nao">{pauta.totalVotosNao}</span>
+        <div>
+          <div className={`pauta-status ${statusInfo.classe}`}>
+            {statusInfo.texto}
+          </div>
+
+          <p className="pauta-descricao">{pauta.descricao}</p>
+
+          <div className="pauta-meta">
+            <p><strong>Criado por:</strong> {pauta.criador.nome}</p>
+            <p><strong>Data de criação:</strong> {formatarData(pauta.dataCriacao)}</p>
+
+            {(pauta.status === 'APROVADA' || pauta.status === 'RECUSADA' || pauta.status === 'EMPATADA') && (
+              <div className="pauta-resultado">
+                <p><strong>Resultado:</strong></p>
+                <div className="votos-container">
+                  <div className="voto-item">
+                    <span className="voto-label">Sim:</span>
+                    <span className="voto-count sim">{pauta.totalVotosSim}</span>
+                  </div>
+                  <div className="voto-item">
+                    <span className="voto-label">Não:</span>
+                    <span className="voto-count nao">{pauta.totalVotosNao}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </>
     );
@@ -84,7 +96,7 @@ function ListarPautas() {
 
   return (
     <ListarEntidade
-      titulo="Lista de Pautas"
+      titulo={titulo}
       entidades={pautas}
       carregando={carregando}
       erro={erro}
@@ -101,6 +113,10 @@ function ListarPautas() {
       getTitulo={(pauta) => pauta.titulo}
       podeEditar={(pauta) => pauta.status === 'CRIADA'}
       podeExcluir={(pauta) => pauta.status === 'CRIADA'}
+      podeIniciarSessao={(pauta) => pauta.status === 'CRIADA'}
+      onIniciarSessao={iniciarSessaoVotacao}
+      podeVotar={(pauta) => pauta.status === 'EM_VOTACAO'} 
+      onVotar={votar} 
       renderizarConteudo={renderizarConteudoPauta}
     />
   );

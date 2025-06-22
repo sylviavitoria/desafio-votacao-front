@@ -6,6 +6,11 @@ import Associado from './pages/Associado';
 import EditarAssociado from './components/EditarAssociado';
 import Pauta from './pages/Pauta';
 import EditarPauta from './components/EditarPauta';
+import DetalhePauta from './pages/DetalhePauta';
+import SessaoVotacao from './pages/SessaoVotacao';
+import AtualizarSessaoVotacao from './pages/AtualizarSessaoVotacao';
+import Voto from './pages/Voto';
+import DetalheVoto from './components/DetalheVoto';
 
 const App = () => {
   return (
@@ -20,6 +25,11 @@ const App = () => {
           <Route path="/pauta" element={<Pauta />} />
           <Route path="/editar-pauta/:id" element={<EditarPauta />} />
           <Route path="/listar-pautas" element={<Pauta />} />
+          <Route path="/detalhe-votacao/:id" element={<DetalhePauta />} />
+          <Route path="/sessao-votacao" element={<SessaoVotacao />} />
+          <Route path="/atualizar-sessao/:id" element={<AtualizarSessaoVotacao />} />
+          <Route path="/voto" element={<Voto />} />
+          <Route path="/voto/:id" element={<DetalheVoto />} />
         </Routes>
         <Footer />
       </div>

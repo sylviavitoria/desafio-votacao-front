@@ -1,15 +1,15 @@
-import Banner from './../components/Banner';
+import Banner from '../components/Banner';
+import ListarPautas from '../components/ListarPautas';
 
 const Home = () => {
   return (
     <>
       <Banner 
         titulo="Bem-vindo ao VotaFácil!" 
-        descricao="Você faz votações de suas pautas aqui!"
+        descricao="Confira todas as pautas disponíveis para votação"
       />
-      <div className="content">
-        {/*As pautas serão cadastradas aqui */}
-        <h3>Conteúdo do site em construção...</h3>
+      <div className="content full-width">
+        <ListarPautas titulo="Todas as Pautas" />
       </div>
     </>
   );
