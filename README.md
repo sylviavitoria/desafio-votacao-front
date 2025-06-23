@@ -189,6 +189,7 @@ src/
 O projeto utiliza Jest e Testing Library para testes unitários. Execute os testes com:
 ```bash
 npm run test           # Executa todos os testes
+npm run test:coverage  # Gera relatório de cobertura
 ```
 ---
 
