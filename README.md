@@ -30,7 +30,7 @@ A plataforma permite **cadastrar associados, criar pautas, iniciar sessões de v
 ## 🎨 Imagens do layout:
 ### Abaixo estão algumas imagens que ilustram o layout e o funcionamento da aplicação.
 
-![image](https://github.com/user-attachments/assets/835812cd-0f0d-4d4c-bf5f-958e20f32bd2)
+![image](https://github.com/user-attachments/assets/2894cb9f-c238-464b-a87f-63987db1299f)
 
 ![image](https://github.com/user-attachments/assets/c6493b09-9dfe-4f94-a787-5b4cde01498f)
 
