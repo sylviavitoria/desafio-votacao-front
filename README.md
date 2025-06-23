@@ -1,54 +1,230 @@
-# React + TypeScript + Vite
+# 🗳️ Sistema de Votação VotaFácil
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🔍 Visão Geral
 
-Currently, two official plugins are available:
+O **VotaFácil** é uma aplicação web completa para gerenciamento de pautas e votações em assembleias.  
+A plataforma permite **cadastrar associados, criar pautas, iniciar sessões de votação, registrar votos e visualizar resultados** de forma simples e intuitiva.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🧠 Tecnologias Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Frontend
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **React 18:** Biblioteca JavaScript para construção de interfaces de usuário
+- **TypeScript:** Linguagem de programação tipada que compila para JavaScript
+- **Vite:** Ferramenta de build moderna e rápida para projetos frontend
+- **React Router Dom:** Gerenciamento de rotas e navegação
+- **Axios:** Cliente HTTP para realizar requisições à API
+- **CSS Puro:** Estilização sem dependências externas
+
+### Padrões e Arquitetura
+
+- **Custom Hooks:** Reutilização de lógica de estado e efeitos
+- **Componentes Genéricos:** Padrões de design para reutilização de componentes
+- **Design Responsivo:** Layout adaptável para diferentes dispositivos
+- **Componentização:** Divisão da interface em componentes reutilizáveis
+
+---
+
+## 🎨 Imagens do layout:
+### Abaixo estão algumas imagens que ilustram o layout e o funcionamento da aplicação.
+
+![image](https://github.com/user-attachments/assets/835812cd-0f0d-4d4c-bf5f-958e20f32bd2)
+
+![image](https://github.com/user-attachments/assets/c6493b09-9dfe-4f94-a787-5b4cde01498f)
+
+![image](https://github.com/user-attachments/assets/e143e8b2-6dbb-4afa-931d-97b061dd6173)
+
+![image](https://github.com/user-attachments/assets/60e78872-b1c1-4895-bf14-34c683520e14)
+
+![image](https://github.com/user-attachments/assets/c3067ed2-e0e9-48c8-9b36-7b51ae873548)
+
+
+![image](https://github.com/user-attachments/assets/c6a8f3eb-14ae-400d-8c37-81fe78863f03)
+
+![image](https://github.com/user-attachments/assets/6d6fa730-4fef-4983-a921-57ddb5f5f6f9)
+
+
+
+---
+
+## 📂 Estrutura do Projeto
+
+```
+src/
+├── components/         # Componentes React
+│   ├── __tests__/      # Testes para componentes
+│   ├── form/           # Componentes de formulário
+│   │   └── __tests__/  # Testes para componentes de formulário
+│   ├── generic/        # Componentes genéricos reutilizáveis
+│   │   └── __tests__/  # Testes para componentes genéricos
+│   └── ...
+├── hooks/              # Custom hooks React
+│   └── __tests__/      # Testes para hooks
+├── pages/              # Páginas/rotas da aplicação
+│   └── __tests__/      # Testes para páginas (se houver)
+├── service/            # Serviços para comunicação com API
+│   └── __tests__/      # Testes para serviços (se houver)
+├── types/              # Definições de tipos TypeScript
+├── setupTests.ts       # Configuração global para testes
+└── index.css           # Estilos globais da aplicação
+```
+## 🗺️ Páginas Principais
+
+### 🔸 Home
+- Exibe todas as pautas disponíveis
+- Permite navegar para os detalhes de cada pauta
+
+### 🔸 Pautas
+- **Listar Pautas:** Visualização de todas as pautas cadastradas
+- **Criar Pauta:** Formulário para cadastrar uma nova pauta
+- **Editar Pauta:** Formulário para editar uma pauta existente
+- **Detalhe da Pauta:** Visualização detalhada e opções para iniciar votação
+
+### 🔸 Associados
+- **Listar Associados:** Visualização de todos os associados cadastrados
+- **Criar Associado:** Formulário para cadastro de novos associados
+- **Editar Associado:** Formulário para alterar dados de um associado
+
+### 🔸 Sessões de Votação
+- **Listar Sessões:** Visualização de todas as sessões de votação
+- **Detalhes da Sessão:** Informações sobre período e status da votação
+- **Atualizar Sessão:** Opção para estender o período de votação
+
+---
+
+## ⚙️ Funcionalidades Principais
+
+### ✔️ Gestão de Associados
+- Cadastro de associados com nome, CPF e email
+- Listagem de associados com paginação
+- Edição e exclusão de associados
+
+### ✔️ Gestão de Pautas
+- Criação de pautas com título, descrição e criador
+- Listagem de pautas com paginação e filtros
+- Visualização detalhada com status e resultados de votação
+- Edição e exclusão de pautas (quando no status **"Criada"**)
+- Visualização de status da pauta:  
+  **Criada | Em votação | Aprovada | Recusada | Empatada**
+
+### ✔️ Sessões de Votação
+- Criação de sessão de votação para uma pauta
+- Duas modalidades de abertura:
+  - **Abertura Imediata:** Define apenas a duração em minutos
+  - **Agendamento:** Define data/hora de início e fim
+- Visualização de status da sessão:  
+  **Aberta | Fechada | Finalizada**
+- Possibilidade de estender período de votação para sessões abertas
+
+### ✔️ Votação
+- Interface de votação simples (opções **"Sim"** ou **"Não"**)
+- Validação de associado mediante ID
+- Confirmação e feedback do voto registrado
+- Visualização de resultados após encerramento
+
+---
+
+## 🚦 Estados de Pauta
+
+- **Criada:** Pauta recém-cadastrada
+- **Em Votação:** Pauta com sessão de votação aberta
+- **Aprovada:** Pauta com maioria de votos **"Sim"**
+- **Recusada:** Pauta com maioria de votos **"Não"**
+- **Empatada:** Mesmo número de votos **"Sim"** e **"Não"**
+
+---
+
+## 🛑 Validações e Tratamento de Erros
+
+### 📑 Validações de Formulários
+- Campos obrigatórios em todos os formulários
+- Validação de formato de **CPF** (11 dígitos numéricos)
+- Validação de formato de **email**
+- Feedback visual para campos com erro
+- Mensagens de erro específicas para cada tipo de validação
+
+### 🔗 Tratamento de Erros de API
+- **Interceptor Axios** para tratamento uniforme dos erros
+- Exibição de mensagens amigáveis para erros de backend
+- Feedback visual para:
+  - Operações em andamento (**loading**)
+  - Operações bem-sucedidas
+
+---
+
+## 🎨 Recursos Visuais
+
+### 🖥️ Interface Responsiva
+- Layout adaptável para dispositivos móveis e desktop
+- **Cards** para exibição de listagens
+- Botões de ação contextuais
+- Indicadores de status com cores distintas
+
+### 🧩 Componentes Visuais
+- **Card:** Exibição de entidades com ações específicas
+- **Banner:** Header para as páginas principais
+- **Botões:** Estilização consistente para ações primárias e secundárias
+- **Formulários:** Layout padronizado com validação visual
+- **Paginação:** Navegação entre páginas de resultados
+
+---
+
+## 🔗 Comunicação com Backend
+
+### 🔥 Endpoints Utilizados
+- **Associados:** CRUD completo para gestão de associados
+- **Pautas:** CRUD completo para gestão de pautas
+- **Sessões de Votação:** Criação, listagem e atualização
+- **Votos:** Registro e consulta de resultados
+
+### ⚙️ Tratamento de Respostas
+- Tratamento padronizado para paginação
+- Formatação de dados para exibição ao usuário
+- Manipulação de códigos de status HTTP
+---
+
+## 🧪 Testes
+O projeto utiliza Jest e Testing Library para testes unitários. Execute os testes com:
+```bash
+npm run test           # Executa todos os testes
+```
+---
+
+# 🌬️ Como Executar
+
+### Pré-requisitos
+
+- Node.js (v18 ou superior)  
+- npm ou yarn  
+- Clone o repositório do back-end, para que você consiga rodar o projeto. Siga as instruções e configurações do back-end: [desafio-votacao](https://github.com/sylviavitoria/desafio-votacao)
+
+## Passo a passo para Execução
+
+### 1. Clone o repositório do Front e do Back
+```bash
+# Clone o repositório do FRONT
+git clone https://github.com/sylviavitoria/desafio-votacao-front.git
+cd desafio-votacao-front
+
+# Siga as instruções do repositório do BACK-END para conseguir rodar a aplicação
+Link repositório: https://github.com/sylviavitoria/desafio-votacao
+git clone https://github.com/sylviavitoria/desafio-votacao.git
+cd desafio-votacao
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+### 2. Instale as dependências
+```bash
+npm install
 ```
+# Execute o projeto em modo de desenvolvimento
+```bash
+npm run dev
+```
+
+Acesse a aplicação em: [http://localhost:5173](http://localhost:5173)
+
+
+---
