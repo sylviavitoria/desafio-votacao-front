@@ -92,6 +92,12 @@ src/
 - **Detalhes da Sessão:** Informações sobre período e status da votação
 - **Atualizar Sessão:** Opção para estender o período de votação
 
+### 🔸 Votos
+- **Registrar Voto:** Interface para que associados possam votar em pautas abertas
+- **Consultar Voto:** Funcionalidade para verificar votos realizados por ID
+- **Detalhe do Voto:** Visualização das informações de um voto específico
+- **Alterar Voto:** Possibilidade de um associado alterar seu voto enquanto a sessão estiver aberta
+
 ---
 
 ## ⚙️ Funcionalidades Principais
