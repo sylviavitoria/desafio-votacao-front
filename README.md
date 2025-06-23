@@ -42,7 +42,8 @@ A plataforma permite **cadastrar associados, criar pautas, iniciar sessões de v
 
 ![image](https://github.com/user-attachments/assets/043f3187-7127-4c58-920a-59ac69f841f2)
 
-![image](https://github.com/user-attachments/assets/de8017b2-dc06-48d5-a4f1-624300166c38)
+![image](https://github.com/user-attachments/assets/c43ab32a-4c1f-472f-b443-579a1ac1e43d)
+
 
 
 
