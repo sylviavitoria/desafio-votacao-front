@@ -30,20 +30,20 @@ A plataforma permite **cadastrar associados, criar pautas, iniciar sessões de v
 ## 🎨 Imagens do layout:
 ### Abaixo estão algumas imagens que ilustram o layout e o funcionamento da aplicação.
 
-![image](https://github.com/user-attachments/assets/835812cd-0f0d-4d4c-bf5f-958e20f32bd2)
+![image](https://github.com/user-attachments/assets/2894cb9f-c238-464b-a87f-63987db1299f)
 
-![image](https://github.com/user-attachments/assets/c6493b09-9dfe-4f94-a787-5b4cde01498f)
+![image](https://github.com/user-attachments/assets/e88e6cf4-204a-4f66-b7e2-5ea2b6862ca6)
 
-![image](https://github.com/user-attachments/assets/e143e8b2-6dbb-4afa-931d-97b061dd6173)
+![image](https://github.com/user-attachments/assets/bfe822ae-e373-43db-8d58-c856173703b9)
 
-![image](https://github.com/user-attachments/assets/60e78872-b1c1-4895-bf14-34c683520e14)
+![image](https://github.com/user-attachments/assets/cd7de064-46ee-423d-b03a-878109296270)
 
-![image](https://github.com/user-attachments/assets/c3067ed2-e0e9-48c8-9b36-7b51ae873548)
+![image](https://github.com/user-attachments/assets/e64602c8-06df-43a5-b2d4-c8b5b80bc289)
 
+![image](https://github.com/user-attachments/assets/043f3187-7127-4c58-920a-59ac69f841f2)
 
-![image](https://github.com/user-attachments/assets/c6a8f3eb-14ae-400d-8c37-81fe78863f03)
+![image](https://github.com/user-attachments/assets/c43ab32a-4c1f-472f-b443-579a1ac1e43d)
 
-![image](https://github.com/user-attachments/assets/6d6fa730-4fef-4983-a921-57ddb5f5f6f9)
 
 
 
@@ -91,6 +91,12 @@ src/
 - **Listar Sessões:** Visualização de todas as sessões de votação
 - **Detalhes da Sessão:** Informações sobre período e status da votação
 - **Atualizar Sessão:** Opção para estender o período de votação
+
+### 🔸 Votos
+- **Registrar Voto:** Interface para que associados possam votar em pautas abertas
+- **Consultar Voto:** Funcionalidade para verificar votos realizados por ID
+- **Detalhe do Voto:** Visualização das informações de um voto específico
+- **Alterar Voto:** Possibilidade de um associado alterar seu voto enquanto a sessão estiver aberta
 
 ---
 
@@ -189,6 +195,7 @@ src/
 O projeto utiliza Jest e Testing Library para testes unitários. Execute os testes com:
 ```bash
 npm run test           # Executa todos os testes
+npm run test:coverage  # Gera relatório de cobertura
 ```
 ---
 

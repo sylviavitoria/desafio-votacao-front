@@ -3,6 +3,7 @@ import useExcluirPauta from '../hooks/useExcluirPauta';
 import ListarEntidade from './generic/ListarEntidade';
 import { PautaResponse } from '../types/Pauta';
 import { useNavigate } from 'react-router-dom';
+import { formatarData, getStatusPauta } from '../utils/formatacao';
 
 function ListarPautas({ titulo = "Lista de Pautas" }) {
   const navigate = useNavigate();
@@ -28,27 +29,6 @@ function ListarPautas({ titulo = "Lista de Pautas" }) {
     }
   });
 
-  const formatarData = (dataString: string) => {
-    const data = new Date(dataString);
-    return data.toLocaleDateString('pt-BR') + ' ' + data.toLocaleTimeString('pt-BR', {
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-  };
-
-  const getStatusLabel = (status: string) => {
-    const statusMap: Record<string, { texto: string, classe: string }> = {
-      'CRIADA': { texto: 'Criada', classe: 'status-info' },
-      'EM_VOTACAO': { texto: 'Em Votação', classe: 'status-warning' },
-      'ENCERRADA': { texto: 'Encerrada', classe: 'status-dark' },
-      'APROVADA': { texto: 'Aprovada', classe: 'status-success' },
-      'RECUSADA': { texto: 'Recusada', classe: 'status-danger' },
-      'EMPATADA': { texto: 'Empatada', classe: 'status-secondary' }
-    };
-    
-    return statusMap[status] || { texto: status, classe: '' };
-  };
-
   const iniciarSessaoVotacao = (id: number) => {
     navigate(`/detalhe-votacao/${id}`);
   };
@@ -58,7 +38,7 @@ function ListarPautas({ titulo = "Lista de Pautas" }) {
   };
 
   const renderizarConteudoPauta = (pauta: PautaResponse) => {
-    const statusInfo = getStatusLabel(pauta.status);
+    const statusInfo = getStatusPauta(pauta.status);
 
     return (
       <>

@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import api from './api';
+import { montarParametroOrdenacao } from '../utils/ordenacao';
 import { 
   SessaoVotacaoRequest, 
   SessaoVotacaoResponse, 
@@ -13,18 +14,8 @@ export const sessaoVotacaoService = {
     return response.data;
   },
 
-  async listar(pagina: number = 0, tamanho: number = 10, ordenacao?: string): Promise<PageResponse<SessaoVotacaoResponse>> {
-    let sortParam = '';
-    if (ordenacao) {
-      const parts = ordenacao.split(',');
-      if (parts.length > 1) {
-        sortParam = `&sort=${parts[0]}&direction=${parts[1]}`;
-      } else {
-        sortParam = `&sort=${ordenacao}`;
-      }
-    } else {
-      sortParam = '&sort=dataAbertura&direction=desc';
-    }
+    async listar(pagina: number = 0, tamanho: number = 10, ordenacao?: string): Promise<PageResponse<SessaoVotacaoResponse>> {
+      const sortParam = montarParametroOrdenacao(ordenacao, { campo: 'dataAbertura', direcao: 'desc' });
 
     const response: AxiosResponse<PageResponse<SessaoVotacaoResponse>> =
       await api.get(`/sessoes?page=${pagina}&size=${tamanho}${sortParam}`);
