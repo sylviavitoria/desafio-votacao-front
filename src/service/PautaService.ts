@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 import api from './api';
 import { Pauta, PautaResponse, PageResponse, PautaAtualizarRequest } from '../types/Pauta';
+import { montarParametroOrdenacao } from '../utils/ordenacao';
 
 export const pautaService = {
     async criar(pautaData: Pauta): Promise<PautaResponse> {
@@ -9,17 +10,7 @@ export const pautaService = {
     },
 
     async listar(pagina: number = 0, tamanho: number = 10, ordenacao?: string): Promise<PageResponse<PautaResponse>> {
-        let sortParam = '';
-        if (ordenacao) {
-            const parts = ordenacao.split(',');
-            if (parts.length > 1) {
-                sortParam = `&sort=${parts[0]}&direction=${parts[1]}`;
-            } else {
-                sortParam = `&sort=${ordenacao}`;
-            }
-        } else {
-            sortParam = '&sort=dataCriacao&direction=desc';
-        }
+        const sortParam = montarParametroOrdenacao(ordenacao, { campo: 'dataCriacao', direcao: 'desc' });
 
         const response: AxiosResponse<PageResponse<PautaResponse>> =
             await api.get(`/pautas?page=${pagina}&size=${tamanho}${sortParam}`);
