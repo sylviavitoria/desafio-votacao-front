@@ -20,12 +20,12 @@ interface MockFormEvent extends Omit<React.FormEvent<HTMLFormElement>, 'preventD
 describe('useFormAtualizarPeriodoSessao', () => {
   const mockSessaoId = 123;
   const mockOnSuccess = jest.fn();
-  
+
   const mockAtualizarPeriodo = jest.fn();
   const mockAtualizando = false;
   const mockErro = null;
   const mockEnviado = false;
-  
+
   const mockResponse: SessaoVotacaoResponse = {
     id: 123,
     pautaId: 456,
@@ -36,10 +36,19 @@ describe('useFormAtualizarPeriodoSessao', () => {
     abertaParaVotacao: true
   };
 
+  beforeAll(() => {
+    jest.useFakeTimers();
+    jest.setSystemTime(new Date('2025-06-23T10:00:00'));
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   beforeEach(() => {
     jest.clearAllMocks();
     mockAtualizarPeriodo.mockResolvedValue(mockResponse);
-    
+
     (useAtualizarPeriodoSessao as jest.Mock).mockReturnValue({
       atualizarPeriodo: mockAtualizarPeriodo,
       atualizando: mockAtualizando,
@@ -60,10 +69,10 @@ describe('useFormAtualizarPeriodoSessao', () => {
   } as MockChangeEvent);
 
   it('deve iniciar com os valores padrão corretos', () => {
-    const { result } = renderHook(() => 
-      useFormAtualizarPeriodoSessao({ 
+    const { result } = renderHook(() =>
+      useFormAtualizarPeriodoSessao({
         sessaoId: mockSessaoId,
-        onSuccess: mockOnSuccess 
+        onSuccess: mockOnSuccess
       })
     );
 
@@ -79,10 +88,10 @@ describe('useFormAtualizarPeriodoSessao', () => {
   });
 
   it('deve alterar o modo corretamente', () => {
-    const { result } = renderHook(() => 
-      useFormAtualizarPeriodoSessao({ 
+    const { result } = renderHook(() =>
+      useFormAtualizarPeriodoSessao({
         sessaoId: mockSessaoId,
-        onSuccess: mockOnSuccess 
+        onSuccess: mockOnSuccess
       })
     );
 
@@ -96,10 +105,10 @@ describe('useFormAtualizarPeriodoSessao', () => {
   });
 
   it('deve validar corretamente o campo minutosAdicionais no modo minutos', async () => {
-    const { result } = renderHook(() => 
-      useFormAtualizarPeriodoSessao({ 
+    const { result } = renderHook(() =>
+      useFormAtualizarPeriodoSessao({
         sessaoId: mockSessaoId,
-        onSuccess: mockOnSuccess 
+        onSuccess: mockOnSuccess
       })
     );
 
@@ -127,10 +136,10 @@ describe('useFormAtualizarPeriodoSessao', () => {
   });
 
   it('deve validar corretamente o campo dataFim no modo data', async () => {
-    const { result } = renderHook(() => 
-      useFormAtualizarPeriodoSessao({ 
+    const { result } = renderHook(() =>
+      useFormAtualizarPeriodoSessao({
         sessaoId: mockSessaoId,
-        onSuccess: mockOnSuccess 
+        onSuccess: mockOnSuccess
       })
     );
 
@@ -170,10 +179,10 @@ describe('useFormAtualizarPeriodoSessao', () => {
   });
 
   it('deve chamar atualizarPeriodo com minutosAdicionais no modo minutos', async () => {
-    const { result } = renderHook(() => 
-      useFormAtualizarPeriodoSessao({ 
+    const { result } = renderHook(() =>
+      useFormAtualizarPeriodoSessao({
         sessaoId: mockSessaoId,
-        onSuccess: mockOnSuccess 
+        onSuccess: mockOnSuccess
       })
     );
 
@@ -192,10 +201,10 @@ describe('useFormAtualizarPeriodoSessao', () => {
   });
 
   it('deve chamar atualizarPeriodo com dataFim no modo data', async () => {
-    const { result } = renderHook(() => 
-      useFormAtualizarPeriodoSessao({ 
+    const { result } = renderHook(() =>
+      useFormAtualizarPeriodoSessao({
         sessaoId: mockSessaoId,
-        onSuccess: mockOnSuccess 
+        onSuccess: mockOnSuccess
       })
     );
 
@@ -220,5 +229,5 @@ describe('useFormAtualizarPeriodoSessao', () => {
       { dataFim: dataFuturaStr }
     );
   });
-
+  
 });
